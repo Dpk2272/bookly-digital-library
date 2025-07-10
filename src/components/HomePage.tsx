@@ -2,7 +2,6 @@ import React from 'react';
 import { Book, TrendingUp, Users, Award, Download, Headphones, FileText, Star } from 'lucide-react';
 import { Book as BookType } from '../types';
 import BookCard from './BookCard';
-import SpaceBookAnimation from './SpaceBookAnimation';
 
 interface HomePageProps {
   featuredBooks: BookType[];
@@ -17,17 +16,6 @@ const HomePage: React.FC<HomePageProps> = ({
   onAddToCart,
   onViewCatalog
 }) => {
-  const [showAnimation, setShowAnimation] = React.useState(true);
-
-  if (showAnimation) {
-    return (
-      <SpaceBookAnimation 
-        onAnimationComplete={() => setShowAnimation(false)}
-        autoPlay={true}
-      />
-    );
-  }
-
   const stats = [
     { icon: Book, label: 'Books Available', value: '50,000+', color: 'from-blue-500 to-blue-600' },
     { icon: Users, label: 'Active Readers', value: '100,000+', color: 'from-indigo-500 to-indigo-600' },
@@ -59,60 +47,43 @@ const HomePage: React.FC<HomePageProps> = ({
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white py-24 px-4 overflow-hidden">
+      <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white py-24 px-4 overflow-hidden">
         <div className="absolute inset-0 bg-black opacity-20"></div>
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-indigo-600/20"></div>
         
-        {/* Space Elements */}
-        <div className="absolute top-20 left-10 w-20 h-20 bg-blue-400/30 rounded-full blur-xl animate-float"></div>
-        <div className="absolute bottom-20 right-10 w-32 h-32 bg-purple-400/30 rounded-full blur-xl animate-float" style={{ animationDelay: '2s' }}></div>
-        <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-cyan-400/30 rounded-full blur-xl animate-float" style={{ animationDelay: '1s' }}></div>
-        
-        {/* Animated Stars */}
-        {Array.from({ length: 30 }).map((_, i) => (
-          <Star
-            key={i}
-            className="absolute text-white/20 animate-pulse"
-            size={Math.random() * 4 + 2}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 3}s`
-            }}
-            fill="currentColor"
-          />
-        ))}
+        {/* Floating Elements */}
+        <div className="absolute top-20 left-10 w-20 h-20 bg-blue-400/20 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute bottom-20 right-10 w-32 h-32 bg-indigo-400/20 rounded-full blur-xl animate-pulse delay-1000"></div>
+        <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-cyan-400/20 rounded-full blur-xl animate-pulse delay-500"></div>
         
         <div className="relative max-w-7xl mx-auto text-center">
           <div className="mb-8">
             <h1 className="text-6xl md:text-7xl font-bold mb-6 leading-tight">
-              <span className="block bg-gradient-to-r from-blue-300 via-purple-300 to-cyan-300 bg-clip-text text-transparent animate-gradient">
-                Cosmic Library
-              </span>
-              <span className="block text-4xl md:text-5xl mt-4 text-blue-200">
-                Explore the Universe of Books
+              Discover Your Next
+              <span className="block bg-gradient-to-r from-blue-300 to-cyan-300 bg-clip-text text-transparent">
+                Literary Adventure
               </span>
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-blue-100 max-w-4xl mx-auto leading-relaxed">
-              Journey through our cosmic digital library with free PDF downloads, audiobooks, and detailed summaries. 
-              Your interstellar adventure into knowledge awaits.
+              Explore our vast digital library with free PDF downloads, audiobooks, and detailed summaries. 
+              Your journey into knowledge starts here.
             </p>
           </div>
           
           <div className="flex flex-col sm:flex-row gap-6 justify-center mb-12">
             <button 
               onClick={onViewCatalog}
-              className="group bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-2xl text-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 cosmic-glow"
+              className="group bg-gradient-to-r from-blue-500 to-blue-600 text-white px-8 py-4 rounded-2xl text-lg font-semibold hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
             >
               <span className="flex items-center justify-center space-x-2">
                 <Book className="h-5 w-5 group-hover:scale-110 transition-transform" />
-                <span>Launch Into Library</span>
+                <span>Explore Library</span>
               </span>
             </button>
-            <button className="group border-2 border-purple-300 text-purple-100 px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-purple-100 hover:text-purple-900 transition-all duration-300 cosmic-glow-purple">
+            <button className="group border-2 border-blue-300 text-blue-100 px-8 py-4 rounded-2xl text-lg font-semibold hover:bg-blue-100 hover:text-blue-900 transition-all duration-300">
               <span className="flex items-center justify-center space-x-2">
                 <Download className="h-5 w-5 group-hover:scale-110 transition-transform" />
-                <span>Free Cosmic Downloads</span>
+                <span>Free Downloads</span>
               </span>
             </button>
           </div>
@@ -120,7 +91,7 @@ const HomePage: React.FC<HomePageProps> = ({
           {/* Feature Highlights */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
             {features.map((feature, index) => (
-              <div key={index} className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20 hover-lift cosmic-glow">
+              <div key={index} className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
                 <div className={`inline-flex items-center justify-center w-12 h-12 ${feature.color} rounded-xl mb-4`}>
                   <feature.icon className="h-6 w-6 text-white" />
                 </div>
@@ -133,36 +104,17 @@ const HomePage: React.FC<HomePageProps> = ({
       </section>
 
       {/* Stats Section */}
-      <section className="py-20 bg-gradient-to-br from-white via-blue-50 to-indigo-50 relative overflow-hidden">
-        {/* Background Space Elements */}
-        <div className="absolute inset-0 opacity-10">
-          {Array.from({ length: 20 }).map((_, i) => (
-            <Star
-              key={i}
-              className="absolute text-blue-600 animate-pulse"
-              size={Math.random() * 6 + 2}
-              style={{
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animationDelay: `${Math.random() * 4}s`
-              }}
-              fill="currentColor"
-            />
-          ))}
-        </div>
-        
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold bg-gradient-to-r from-slate-800 to-blue-800 bg-clip-text text-transparent mb-4">
-              Trusted Across the Galaxy
-            </h2>
-            <p className="text-xl text-slate-600">Join our growing cosmic community of knowledge seekers</p>
+            <h2 className="text-4xl font-bold text-slate-800 mb-4">Trusted by Millions</h2>
+            <p className="text-xl text-slate-600">Join our growing community of book lovers</p>
           </div>
           
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
-              <div key={index} className="text-center group hover-lift">
-                <div className={`inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r ${stat.color} rounded-2xl mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg cosmic-glow`}>
+              <div key={index} className="text-center group">
+                <div className={`inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r ${stat.color} rounded-2xl mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
                   <stat.icon className="h-10 w-10 text-white" />
                 </div>
                 <div className="text-4xl font-bold text-slate-800 mb-2">{stat.value}</div>
@@ -174,21 +126,13 @@ const HomePage: React.FC<HomePageProps> = ({
       </section>
 
       {/* Featured Books Section */}
-      <section className="py-20 px-4 bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900 text-white relative overflow-hidden">
-        {/* Cosmic Background */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-radial from-purple-500/30 to-transparent rounded-full blur-3xl animate-nebula" />
-          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-gradient-radial from-blue-500/30 to-transparent rounded-full blur-3xl animate-nebula" style={{ animationDelay: '6s' }} />
-        </div>
-        
+      <section className="py-20 px-4 bg-gradient-to-br from-blue-50 to-indigo-50">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-5xl font-bold bg-gradient-to-r from-blue-300 via-purple-300 to-cyan-300 bg-clip-text text-transparent mb-6 animate-gradient">
-              Stellar Collection
-            </h2>
-            <p className="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
-              Handpicked cosmic selections from our galactic curators, featuring bestsellers, classics, 
-              and hidden gems from across the universe with free downloads and audio versions.
+            <h2 className="text-5xl font-bold text-slate-800 mb-6">Featured Collection</h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto leading-relaxed">
+              Handpicked selections from our curators, featuring bestsellers, classics, 
+              and hidden gems with free downloads and audio versions.
             </p>
           </div>
           
@@ -206,50 +150,37 @@ const HomePage: React.FC<HomePageProps> = ({
           <div className="text-center">
             <button 
               onClick={onViewCatalog}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-10 py-4 rounded-2xl font-semibold hover:from-blue-700 hover:to-purple-700 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 cosmic-glow"
+              className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-10 py-4 rounded-2xl font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all duration-300 shadow-xl hover:shadow-2xl transform hover:-translate-y-1"
             >
-              Explore Full Cosmic Library
+              Explore Full Library
             </button>
           </div>
         </div>
       </section>
 
       {/* Newsletter Section */}
-      <section className="py-20 bg-gradient-to-r from-slate-900 via-blue-900 to-purple-900 text-white relative overflow-hidden">
-        {/* Floating Particles */}
-        {Array.from({ length: 15 }).map((_, i) => (
-          <div
-            key={i}
-            className="absolute w-2 h-2 bg-blue-300 rounded-full animate-particle opacity-60"
-            style={{
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 8}s`,
-              animationDuration: `${8 + Math.random() * 4}s`
-            }}
-          />
-        ))}
-        
+      <section className="py-20 bg-gradient-to-r from-blue-900 to-indigo-900 text-white">
         <div className="max-w-4xl mx-auto text-center px-4">
           <div className="mb-8">
-            <h2 className="text-4xl font-bold mb-4 text-glow">Join the Cosmic Network</h2>
+            <h2 className="text-4xl font-bold mb-4">Stay Connected</h2>
             <p className="text-blue-100 text-lg">
-              Receive transmissions about new cosmic releases, exclusive content, and stellar reading recommendations.
+              Get notified about new releases, exclusive content, and reading recommendations.
             </p>
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
             <input
               type="email"
-              placeholder="Enter your cosmic coordinates (email)"
-              className="flex-1 px-6 py-4 rounded-xl border border-purple-300 bg-white/10 backdrop-blur-sm text-white placeholder-purple-200 focus:ring-2 focus:ring-purple-400 focus:border-purple-400 outline-none cosmic-glow"
+              placeholder="Enter your email address"
+              className="flex-1 px-6 py-4 rounded-xl border border-blue-300 bg-white/10 backdrop-blur-sm text-white placeholder-blue-200 focus:ring-2 focus:ring-blue-400 focus:border-blue-400 outline-none"
             />
-            <button className="bg-gradient-to-r from-purple-500 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-purple-600 hover:to-blue-700 transition-all duration-300 shadow-lg cosmic-glow-purple">
-              Launch Subscription
+            <button className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold hover:from-blue-600 hover:to-blue-700 transition-all duration-300 shadow-lg">
+              Subscribe
             </button>
           </div>
           
           <p className="text-blue-200 text-sm mt-4">
-            Join 50,000+ cosmic explorers who trust us with their literary journey across the stars
+            Join 50,000+ readers who trust us with their literary journey
           </p>
         </div>
       </section>
